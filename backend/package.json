@@ -4,6 +4,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "build": "npm install",
     "dev": "npx concurrently \"npm run start\" \"npm run frontend\"",
     "frontend": "cd ../frontend && npm run dev",
     "test": "echo \"Error: no test specified\" && exit 1"
