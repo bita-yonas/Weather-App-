@@ -3,6 +3,8 @@ import "./App.css";
 
 const PMA_DESCRIPTION = `Product Manager Accelerator (PMA) is a community and learning platform for aspiring and current product managers. Learn more at our LinkedIn page: https://www.linkedin.com/company/product-manager-accelerator/`;
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
+
 function App() {
   const [location, setLocation] = useState("");
   const [weather, setWeather] = useState(null);
@@ -27,7 +29,7 @@ function App() {
 
   const fetchSearchHistory = async () => {
     try {
-      const response = await fetch("http://localhost:3001/api/queries");
+      const response = await fetch(`${API_BASE_URL}/api/queries`);
       if (response.ok) {
         const data = await response.json();
         setSearchHistory(data);
@@ -47,7 +49,7 @@ function App() {
 
     try {
       // Fetch weather data
-      const weatherResp = await fetch("http://localhost:3001/api/weather", {
+      const weatherResp = await fetch(`${API_BASE_URL}/api/weather`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -88,7 +90,7 @@ function App() {
   const fetchYouTubeVideos = async (locationName) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/api/youtube/${encodeURIComponent(locationName)}`
+        `${API_BASE_URL}/api/youtube/${encodeURIComponent(locationName)}`
       );
       if (response.ok) {
         const data = await response.json();
@@ -102,7 +104,7 @@ function App() {
   const fetchMapData = async (locationName) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/api/maps/${encodeURIComponent(locationName)}`
+        `${API_BASE_URL}/api/maps/${encodeURIComponent(locationName)}`
       );
       if (response.ok) {
         const data = await response.json();
@@ -151,7 +153,7 @@ function App() {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/api/queries/${editingQuery.id}`,
+        `${API_BASE_URL}/api/queries/${editingQuery.id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -177,7 +179,7 @@ function App() {
     if (!confirm("Are you sure you want to delete this query?")) return;
 
     try {
-      const response = await fetch(`http://localhost:3001/api/queries/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/queries/${id}`, {
         method: "DELETE",
       });
 
@@ -192,7 +194,7 @@ function App() {
   };
 
   const handleExport = (format) => {
-    window.open(`http://localhost:3001/api/export/${format}`, "_blank");
+    window.open(`${API_BASE_URL}/api/export/${format}`, "_blank");
   };
 
   return (

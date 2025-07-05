@@ -8,12 +8,38 @@ const axios = require("axios");
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 10000;
 
-// Middleware - Simple CORS that allows all localhost origins
+// Middleware - CORS configuration for development and production
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "http://localhost:5175",
+  "http://localhost:5176",
+  "http://localhost:5177",
+  "http://localhost:5178",
+  process.env.FRONTEND_URL, // Production frontend URL
+];
+
 app.use(
   cors({
-    origin: true,
+    origin: (origin, callback) => {
+      // Allow requests with no origin (mobile apps, etc.)
+      if (!origin) return callback(null, true);
+
+      // Allow any localhost origin or production origins
+      if (origin.includes("localhost") || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      // Allow render.com domains
+      if (origin.includes(".onrender.com")) {
+        return callback(null, true);
+      }
+
+      callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "Cache-Control"],

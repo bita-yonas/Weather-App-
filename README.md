@@ -222,4 +222,40 @@ If the one-command setup doesn't work:
 - **Build for production**: `npm run build`
 - **Clean dependencies**: `npm run clean`
 
+## 🚀 Deployment
+
+### Deploy to Render (Recommended)
+
+1. **Upload to GitHub** (public repository)
+2. **Connect to Render**: https://render.com
+3. **Import from GitHub** - Select your repository
+4. **Use the render.yaml** file for automatic configuration
+5. **Add Environment Variables** in Render dashboard:
+   - `OPENWEATHER_API_KEY` (required)
+   - `YOUTUBE_API_KEY` (optional)
+   - `GOOGLE_MAPS_API_KEY` (optional)
+
+### Manual Deployment Steps
+
+**Backend:**
+
+- Service Type: Web Service
+- Build Command: `cd backend && npm install`
+- Start Command: `cd backend && npm start`
+- Add environment variables
+
+**Frontend:**
+
+- Service Type: Static Site
+- Build Command: `cd frontend && npm install && npm run build`
+- Publish Directory: `frontend/dist`
+- Set `VITE_API_URL` to your backend URL
+
+### Other Deployment Options
+
+- **Vercel**: Frontend deployment
+- **Heroku**: Full-stack deployment
+- **Netlify**: Frontend deployment
+- **Railway**: Full-stack deployment
+
 **🎉 Ready to impress? Just run `npm run dev` and start exploring your complete weather app!**

@@ -7,7 +7,7 @@
     "dev:parallel": "npx concurrently \"npm run backend\" \"npm run frontend\"",
     "start": "npm run backend",
     "frontend": "cd frontend && npm run dev",
-    "backend": "cd backend && npm start",
+    "backend": "cd backend && npm run start",
     "install-all": "npm run install:backend && npm run install:frontend",
     "install:backend": "cd backend && npm install",
     "install:frontend": "cd frontend && npm install",
