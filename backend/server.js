@@ -48,8 +48,13 @@ app.use(
 
 app.use(express.json());
 
-// SQLite DB setup
-const dbPath = path.join(__dirname, "db", "database.sqlite");
+// SQLite DB setup - Create db directory if it doesn't exist
+const dbDir = path.join(__dirname, "db");
+if (!require("fs").existsSync(dbDir)) {
+  require("fs").mkdirSync(dbDir, { recursive: true });
+}
+
+const dbPath = path.join(dbDir, "database.sqlite");
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
     console.error("Could not connect to database", err);
